@@ -19,6 +19,8 @@ public class ViewTest {
 	private JFrame frame;
 	private JTextField txtStudentId;
 	private static JMenu gMenu;
+	private static JTextField txtProgress;
+
 	private static void addBoxes(JMenu categoryMenu) {
 		JCheckBoxMenuItem chTotal = new JCheckBoxMenuItem("Total");
 		categoryMenu.add(chTotal);
@@ -64,6 +66,7 @@ public class ViewTest {
 			gMenu.add(c.chBox);
 		}
 	}
+
 	public static JPanel initView(AllData a) {
 		ArrayList<String> addedIDs = new ArrayList<String>(10);
 		JMenu categoryMenu = new JMenu("Categories");
@@ -105,158 +108,244 @@ public class ViewTest {
 					}
 
 				}
-				for(String s: addedIDs) {
-					Person p = a.getGroups().get(0).getPerson(s);
-					String[] data = new String[smc + 2];
-					int filled = 2;
-					data[0] = p.getName();
-					data[1] = p.getId();
-					for (int i = 0; i < categoryMenu.getMenuComponentCount(); i++) {
-						JCheckBoxMenuItem chbm = (JCheckBoxMenuItem) categoryMenu.getMenuComponent(i);
-						if (chbm.isSelected()) {
-							String cat = chbm.getText();
-							switch (cat) {
-							case "Total":
-								data[filled] = "" + p.getScore(p.numScores() - 1).sum();
-								filled++;
-								break;
-							case "Warmup 1":
-								data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[0];
-								filled++;
-								break;
-							case "Warmup 2":
-								data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[1];
-								filled++;
-								break;
-							case "Logic 1":
-								data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[2];
-								filled++;
-								break;
-							case "String 1":
-								data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[3];
-								filled++;
-								break;
-							case "Array 1":
-								data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[4];
-								filled++;
-								break;
-							case "Logic 2":
-								data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[5];
-								filled++;
-								break;
-							case "String 2":
-								data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[6];
-								filled++;
-								break;
-							case "Array 2":
-								data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[7];
-								filled++;
-								break;
-							case "AP 1":
-								data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[8];
-								filled++;
-								break;
-							case "String 3":
-								data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[9];
-								filled++;
-								break;
-							case "Array 3":
-								data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[10];
-								filled++;
-								break;
-							case "Recursion 1":
-								data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[11];
-								filled++;
-								break;
-							case "Recursion 2":
-								data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[12];
-								filled++;
-								break;
-
-							}
-						}
-
-					}
-					model.addRow(data);
+				boolean prog = true;
+				int prevCount=Integer.MIN_VALUE;
+				try {
+					prevCount = Integer.parseInt(txtProgress.getText());
+				} catch (Exception e) {
+					prog = false;
 				}
-				for (int k = 0; k < groupMenu.getMenuComponentCount(); k++) {
-					JCheckBoxMenuItem chb = (JCheckBoxMenuItem) groupMenu.getMenuComponent(k);
-					if (chb.isSelected()) {
-						Group g = a.getGroup(chb.getText());
-						for (Person p : g.getPeople()) {
-							String[] data = new String[smc + 2];
-							int filled = 2;
-							data[0] = p.getName();
-							data[1] = p.getId();
-							for (int i = 0; i < categoryMenu.getMenuComponentCount(); i++) {
-								JCheckBoxMenuItem chbm = (JCheckBoxMenuItem) categoryMenu.getMenuComponent(i);
-								if (chbm.isSelected()) {
-									String cat = chbm.getText();
-									switch (cat) {
-									case "Total":
-										data[filled] = "" + p.getScore(p.numScores() - 1).sum();
-										filled++;
-										break;
-									case "Warmup 1":
-										data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[0];
-										filled++;
-										break;
-									case "Warmup 2":
-										data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[1];
-										filled++;
-										break;
-									case "Logic 1":
-										data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[2];
-										filled++;
-										break;
-									case "String 1":
-										data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[3];
-										filled++;
-										break;
-									case "Array 1":
-										data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[4];
-										filled++;
-										break;
-									case "Logic 2":
-										data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[5];
-										filled++;
-										break;
-									case "String 2":
-										data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[6];
-										filled++;
-										break;
-									case "Array 2":
-										data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[7];
-										filled++;
-										break;
-									case "AP 1":
-										data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[8];
-										filled++;
-										break;
-									case "String 3":
-										data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[9];
-										filled++;
-										break;
-									case "Array 3":
-										data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[10];
-										filled++;
-										break;
-									case "Recursion 1":
-										data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[11];
-										filled++;
-										break;
-									case "Recursion 2":
-										data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[12];
-										filled++;
-										break;
+				if (prog) {
+					for (String s : addedIDs) {
+						Person p = a.getGroups().get(0).getPerson(s);
+						String[] data = new String[smc + 2];
+						int filled = 2;
+						data[0] = p.getName();
+						data[1] = p.getId();
+						for (int i = 0; i < categoryMenu.getMenuComponentCount(); i++) {
+							JCheckBoxMenuItem chbm = (JCheckBoxMenuItem) categoryMenu.getMenuComponent(i);
+							if (chbm.isSelected()) {
+								String cat = chbm.getText();
+								switch (cat) {
+								case "Total":
+									data[filled] = "" + p.getScore(p.numScores() - 1).sum();
+									filled++;
+									break;
+								case "Warmup 1":
+									data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[0];
+									filled++;
+									break;
+								case "Warmup 2":
+									data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[1];
+									filled++;
+									break;
+								case "Logic 1":
+									data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[2];
+									filled++;
+									break;
+								case "String 1":
+									data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[3];
+									filled++;
+									break;
+								case "Array 1":
+									data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[4];
+									filled++;
+									break;
+								case "Logic 2":
+									data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[5];
+									filled++;
+									break;
+								case "String 2":
+									data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[6];
+									filled++;
+									break;
+								case "Array 2":
+									data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[7];
+									filled++;
+									break;
+								case "AP 1":
+									data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[8];
+									filled++;
+									break;
+								case "String 3":
+									data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[9];
+									filled++;
+									break;
+								case "Array 3":
+									data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[10];
+									filled++;
+									break;
+								case "Recursion 1":
+									data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[11];
+									filled++;
+									break;
+								case "Recursion 2":
+									data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[12];
+									filled++;
+									break;
 
-									}
 								}
-
 							}
-							model.addRow(data);
+
+						}
+						model.addRow(data);
+					}
+					for (int k = 0; k < groupMenu.getMenuComponentCount(); k++) {
+						JCheckBoxMenuItem chb = (JCheckBoxMenuItem) groupMenu.getMenuComponent(k);
+						if (chb.isSelected()) {
+							Group g = a.getGroup(chb.getText());
+							for (Person p : g.getPeople()) {
+								String[] data = new String[smc + 2];
+								int filled = 2;
+								data[0] = p.getName();
+								data[1] = p.getId();
+								for (int i = 0; i < categoryMenu.getMenuComponentCount(); i++) {
+									JCheckBoxMenuItem chbm = (JCheckBoxMenuItem) categoryMenu.getMenuComponent(i);
+									if (chbm.isSelected()) {
+										String cat = chbm.getText();
+										switch (cat) {
+										case "Total":
+											data[filled] = "" + p.getScore(p.numScores() - 1).sum();
+											filled++;
+											break;
+										case "Warmup 1":
+											data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[0];
+											filled++;
+											break;
+										case "Warmup 2":
+											data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[1];
+											filled++;
+											break;
+										case "Logic 1":
+											data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[2];
+											filled++;
+											break;
+										case "String 1":
+											data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[3];
+											filled++;
+											break;
+										case "Array 1":
+											data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[4];
+											filled++;
+											break;
+										case "Logic 2":
+											data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[5];
+											filled++;
+											break;
+										case "String 2":
+											data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[6];
+											filled++;
+											break;
+										case "Array 2":
+											data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[7];
+											filled++;
+											break;
+										case "AP 1":
+											data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[8];
+											filled++;
+											break;
+										case "String 3":
+											data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[9];
+											filled++;
+											break;
+										case "Array 3":
+											data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[10];
+											filled++;
+											break;
+										case "Recursion 1":
+											data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[11];
+											filled++;
+											break;
+										case "Recursion 2":
+											data[filled] = "" + p.getScore(p.numScores() - 1).getScores()[12];
+											filled++;
+											break;
+
+										}
+									}
+
+								}
+								model.addRow(data);
+							}
 						}
 					}
+				} else {
+					for(String s: addedIDs) {
+						Person p = a.getGroups().get(0).getPerson(s);
+						String[] data = new String[smc + 2];
+						int filled = 2;
+						data[0] = p.getName();
+						data[1] = p.getId();
+						for (int i = 0; i < categoryMenu.getMenuComponentCount(); i++) {
+							JCheckBoxMenuItem chbm = (JCheckBoxMenuItem) categoryMenu.getMenuComponent(i);
+							if (chbm.isSelected()) {
+								String cat = chbm.getText();
+								Score[] ss = ProgUtil.progress(a, s, prevCount);
+								switch (cat) {
+								case "Total":
+									data[filled] = "" + (ss[0].sum()-ss[1].sum());
+									filled++;
+									break;
+								case "Warmup 1":
+									data[filled] = "" + (ss[0].getScores()[0]-ss[1].getScores()[0]);
+									filled++;
+									break;
+								case "Warmup 2":
+									data[filled] = "" + (ss[0].getScores()[1]-ss[1].getScores()[1]);
+									filled++;
+									break;
+								case "Logic 1":
+									data[filled] = "" + (ss[0].getScores()[2]-ss[1].getScores()[2]);
+									filled++;
+									break;
+								case "String 1":
+									data[filled] = "" + (ss[0].getScores()[3]-ss[1].getScores()[3]);
+									filled++;
+									break;
+								case "Array 1":
+									data[filled] = "" + (ss[0].getScores()[4]-ss[1].getScores()[4]);
+									filled++;
+									break;
+								case "Logic 2":
+									data[filled] = "" + (ss[0].getScores()[5]-ss[1].getScores()[5]);
+									filled++;
+									break;
+								case "String 2":
+									data[filled] = "" + (ss[0].getScores()[6]-ss[1].getScores()[6]);
+									filled++;
+									break;
+								case "Array 2":
+									data[filled] = "" + (ss[0].getScores()[7]-ss[1].getScores()[7]);
+									filled++;
+									break;
+								case "AP 1":
+									data[filled] = "" + (ss[0].getScores()[8]-ss[1].getScores()[8]);
+									filled++;
+									break;
+								case "String 3":
+									data[filled] = "" + (ss[0].getScores()[9]-ss[1].getScores()[9]);
+									filled++;
+									break;
+								case "Array 3":
+									data[filled] = "" + (ss[0].getScores()[10]-ss[1].getScores()[10]);
+									filled++;
+									break;
+								case "Recursion 1":
+									data[filled] = "" + (ss[0].getScores()[11]-ss[1].getScores()[11]);
+									filled++;
+									break;
+								case "Recursion 2":
+									data[filled] = "" + (ss[0].getScores()[12]-ss[1].getScores()[12]);
+									filled++;
+									break;
+
+								}
+							}
+
+						}
+					}
+					
+					
 				}
 			}
 		});
@@ -267,20 +356,25 @@ public class ViewTest {
 		butStudentSel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				if(a.getGroups().get(0).hasPerson(txtStudentID.getText())) {
+				if (a.getGroups().get(0).hasPerson(txtStudentID.getText())) {
 					addedIDs.add(txtStudentID.getText());
-				}else {
+				} else {
 					txtStudentID.setText("Couldn't find student");
 				}
 			}
 		});
-		
+
 		options.add(groupMenu);
 		view.add(options);
 		options.add(txtStudentID);
 		options.add(butStudentSel);
 		options.add(categoryMenu);
-		options.setBounds(0, 0, 626, 31);
+		options.setBounds(0, 0, 810, 31);
+
+		txtProgress = new JTextField();
+		txtProgress.setText("Progress since x days");
+		options.add(txtProgress);
+		txtProgress.setColumns(10);
 
 		JScrollPane scr = new JScrollPane(table);
 		scr.setBounds(0, 99, 589, 436);
