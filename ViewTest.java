@@ -347,7 +347,86 @@ public class ViewTest {
 						}
 						model.addRow(data);
 					}
-					
+					for (int k = 0; k < groupMenu.getMenuComponentCount(); k++) {
+						JCheckBoxMenuItem chb = (JCheckBoxMenuItem) groupMenu.getMenuComponent(k);
+						if (chb.isSelected()) {
+							Group g = a.getGroup(chb.getText());
+							for (Person p : g.getPeople()) {
+								String[] data = new String[smc + 2];
+								int filled = 2;
+								data[0] = p.getName();
+								data[1] = p.getId();
+								for (int i = 0; i < categoryMenu.getMenuComponentCount(); i++) {
+									JCheckBoxMenuItem chbm = (JCheckBoxMenuItem) categoryMenu.getMenuComponent(i);
+									if (chbm.isSelected()) {
+										String cat = chbm.getText();
+										Score[] ss = ProgUtil.progress(a, p.getId(), prevCount);
+										switch (cat) {
+										case "Total":
+											data[filled] = "" + (ss[0].sum()-ss[1].sum());
+											filled++;
+											break;
+										case "Warmup 1":
+											data[filled] = "" + (ss[0].getScores()[0]-ss[1].getScores()[0]);
+											filled++;
+											break;
+										case "Warmup 2":
+											data[filled] = "" + (ss[0].getScores()[1]-ss[1].getScores()[1]);
+											filled++;
+											break;
+										case "Logic 1":
+											data[filled] = "" + (ss[0].getScores()[2]-ss[1].getScores()[2]);
+											filled++;
+											break;
+										case "String 1":
+											data[filled] = "" + (ss[0].getScores()[3]-ss[1].getScores()[3]);
+											filled++;
+											break;
+										case "Array 1":
+											data[filled] = "" + (ss[0].getScores()[4]-ss[1].getScores()[4]);
+											filled++;
+											break;
+										case "Logic 2":
+											data[filled] = "" + (ss[0].getScores()[5]-ss[1].getScores()[5]);
+											filled++;
+											break;
+										case "String 2":
+											data[filled] = "" + (ss[0].getScores()[6]-ss[1].getScores()[6]);
+											filled++;
+											break;
+										case "Array 2":
+											data[filled] = "" + (ss[0].getScores()[7]-ss[1].getScores()[7]);
+											filled++;
+											break;
+										case "AP 1":
+											data[filled] = "" + (ss[0].getScores()[8]-ss[1].getScores()[8]);
+											filled++;
+											break;
+										case "String 3":
+											data[filled] = "" + (ss[0].getScores()[9]-ss[1].getScores()[9]);
+											filled++;
+											break;
+										case "Array 3":
+											data[filled] = "" + (ss[0].getScores()[10]-ss[1].getScores()[10]);
+											filled++;
+											break;
+										case "Recursion 1":
+											data[filled] = "" + (ss[0].getScores()[11]-ss[1].getScores()[11]);
+											filled++;
+											break;
+										case "Recursion 2":
+											data[filled] = "" + (ss[0].getScores()[12]-ss[1].getScores()[12]);
+											filled++;
+											break;
+
+										}
+									}
+
+								}
+								model.addRow(data);
+							}
+						}
+					}
 					
 				}
 			}
