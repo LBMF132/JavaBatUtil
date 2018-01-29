@@ -108,12 +108,14 @@ public class ViewTest {
 					}
 
 				}
-				boolean prog = true;
+				boolean prog = false;
 				int prevCount=Integer.MIN_VALUE;
 				try {
 					prevCount = Integer.parseInt(txtProgress.getText());
+					System.out.println("Progress number exists");
 				} catch (Exception e) {
-					prog = false;
+					prog = true;
+					System.out.println("Progress number is nonexistant");
 				}
 				if (prog) {
 					for (String s : addedIDs) {
@@ -343,6 +345,7 @@ public class ViewTest {
 							}
 
 						}
+						model.addRow(data);
 					}
 					
 					
